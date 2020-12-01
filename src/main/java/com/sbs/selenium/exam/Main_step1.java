@@ -15,7 +15,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-public class Main {
+public class Main_step1 {
 	public static void main(String[] args) {
 
 		Path path = Paths.get(System.getProperty("user.dir"), "src/main/resources/chromedriver.exe");
@@ -46,20 +46,16 @@ public class Main {
 			downloadsForder.mkdir();
 		}
 
-		Util.sleep(3000);
+		Util.sleep(1000);
 
-		List<WebElement> imgElements = driver
-				.findElements(By.cssSelector("[data-test=\"masonry-grid-count-three\"] img"));
-//		List<WebElement> imgElements = driver
-//				.findElements(By.cssSelector("[data-test=\"masonry-grid-count-three\"] img[data-test=\"photo-grid-multi-col-img\"]")); // 작동함
+		// TODO Main_main 과 다른 코드
+		List<WebElement> imgElements = driver.findElements(
+				By.cssSelector("[data-test=\"masonry-grid-count-three\"] img[data-test=\"photo-grid-multi-col-img\"]"));
 
 		for (WebElement imgElement : imgElements) {
+			
+			// TODO Main_main 과 다른 코드
 			String src = imgElement.getAttribute("src");
-
-			if (src.contains("https://images.unsplash.com/photo-") == false) {
-				continue;
-			}
-
 			BufferedImage saveImg = null;
 
 			try {
