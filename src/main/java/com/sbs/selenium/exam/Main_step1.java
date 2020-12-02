@@ -17,7 +17,11 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 public class Main_step1 {
 	public static void main(String[] args) {
+		downloadUnsplashNatureImgs();
+		printDCInsideTreeArticles();
+	}
 
+	private static void downloadUnsplashNatureImgs() {
 		Path path = Paths.get(System.getProperty("user.dir"), "src/main/resources/chromedriver.exe");
 
 		// WebDriver 경로 지정
@@ -53,7 +57,7 @@ public class Main_step1 {
 				By.cssSelector("[data-test=\"masonry-grid-count-three\"] img[data-test=\"photo-grid-multi-col-img\"]"));
 
 		for (WebElement imgElement : imgElements) {
-			
+
 			// TODO Main_main 과 다른 코드
 			String src = imgElement.getAttribute("src");
 			BufferedImage saveImg = null;
@@ -76,6 +80,33 @@ public class Main_step1 {
 			}
 
 			System.out.println(src);
+		}
+	}
+
+	private static void printDCInsideTreeArticles() {
+		Path path = Paths.get(System.getProperty("user.dir"), "src/main/resources/chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", path.toString());
+
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--start-maximized");
+		options.addArguments("--disable-popup-blocking");
+		options.addArguments("--disable-default-apps");
+
+		ChromeDriver driver = new ChromeDriver(options);
+
+		List<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+
+		driver.switchTo().window(tabs.get(0));
+		driver.get("https://hobby.dcinside.com/board/lists/?id=tree");
+
+		Util.sleep(1000);
+
+		// TODO Main_main 과 다른 코드
+		List<WebElement> elements = driver.findElements(By.cssSelector("table.gall_list > tbody > tr.us-post"));
+
+		for (WebElement element : elements) {
+			// TODO Main_main 과 다른 코드
+			System.out.println(element.getText());
 		}
 	}
 }
